@@ -6,21 +6,23 @@ if (!require("devtools")) {
 }
 install_github("Jan-E/limer", force = TRUE)
 
+
 #loguear en las apis
-options(lime_api = 'http://url/admin/remotecontrol')
+options(lime_api = 'url/admin/remotecontrol')
 options(lime_username = 'username')
 options(lime_password = 'password')
 
 #############################################################
 
 
-# first get a session access key
+#key de la api de limesurvey
 get_session_key()
+
 #log en google sheets
 gs4_auth()
 
 
-# list all surveys. A dataframe is returned
+# dataframe con la lista de encuestas
 survey_df<-call_limer(method='list_surveys')
 print(survey_df)
 
