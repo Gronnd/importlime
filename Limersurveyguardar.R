@@ -6,39 +6,47 @@ if (!require("devtools")) {
 }
 install_github("Jan-E/limer", force = TRUE)
 
+#loguear en las apis
+options(lime_api = 'http://url/admin/remotecontrol')
+options(lime_username = 'username')
+options(lime_password = 'password')
+
+#############################################################
 
 
-library(googlesheets4)
-library(tidyverse)
-library(limer)
+# first get a session access key
+get_session_key()
+#log en google sheets
+gs4_auth()
 
 
-options(lime_api = 'https://url.limesurvey.net/admin/remotecontrol')
-options(lime_username = 'nombre')
-options(lime_password = 'contraseña')
-
-
-get_session_key() 
-gs4_auth() 
-
-
-
-lista <- call_limer(method = "list_surveys")
-print(lista)
-
-
-Prueba2 <- get_responses(462224, 
-                           sCompletionStatus = "complete")
-Prueba3 <- get_responses(189752, 
-                           sCompletionStatus = "complete")
-
-
-#gs4_create(name="PruebaR",  sheets = c("Prueba2", "Prueba3"))
+# list all surveys. A dataframe is returned
+survey_df<-call_limer(method='list_surveys')
+print(survey_df)
 
 
 
-range_write(Prueba2, ss="url", sheet = "Prueba2" )
-range_write(Prueba3, ss="url", sheet = "Prueba3" )
+
+#pegar encuestas en
+xxxx1 <- get_responses(iSurveyID= "id de la encuesta", )
+xxxx2 <- get_responses(iSurveyID= "id de la encuesta")
 
 
+#importar a google sheets
+range_write(xxxx1, ss="url", sheet = "xxxx1")
+range_write(xxxx2, ss="url", sheet = "xxxx2")
+
+
+
+#crear un csv en el directorio de trabajo
+write_excel_csv2(xxxx1, "xxxx1.csv")
+write_excel_csv2(xxxx2, "xxxx2.csv")
+
+
+#comprobación padrón
+table(xxxx1$Padron)
+table(xxxx2$Padron)
+
+#soltar sesión de la api de limesurvey
+release_session_key()
 
