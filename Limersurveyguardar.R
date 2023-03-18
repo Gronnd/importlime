@@ -4,7 +4,9 @@ if (!require("devtools")) {
         install.packages("devtools")
         library("devtools")
 }
-install_github("Jan-E/limer", force = TRUE)
+install_github("Jan-E/limer")
+library(limer)
+
 
 
 #loguear en las apis
@@ -15,7 +17,7 @@ options(lime_password = 'password')
 #############################################################
 
 
-#key de la api de limesurvey
+#key de la API de limesurvey
 get_session_key()
 
 #log en google sheets
