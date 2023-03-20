@@ -7,12 +7,15 @@ if (!require("devtools")) {
 install_github("Jan-E/limer")
 library(limer)
 
-
+#get username from the first lineof pass.txt
+username <- readLines("pass.txt")[1]
+password <- readLines("pass.txt")[2]
+url <- readLines("pass.txt")[3]
 
 #loguear en las apis
-options(lime_api = 'url/admin/remotecontrol')
-options(lime_username = 'username')
-options(lime_password = 'password')
+options(lime_api = url)
+options(lime_username = username)
+options(lime_password = password)
 
 #############################################################
 
