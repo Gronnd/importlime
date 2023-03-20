@@ -2,6 +2,9 @@
 .Rhistory
 .Rapp.history
 
+#contraseña
+.pass.txt
+
 # Session Data files
 .RData
 .RDataTmp
@@ -47,6 +50,3 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
-
-#contraseña
-.pass
