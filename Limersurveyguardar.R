@@ -6,11 +6,15 @@ if (!require("devtools")) {
 }
 install_github("Jan-E/limer")
 library(limer)
+library(googlesheets4)
+library(tidyverse)
+library(rlang)
 
 #get username from the first lineof pass.txt
 username <- readLines("pass.txt")[1]
 password <- readLines("pass.txt")[2]
 url <- readLines("pass.txt")[3]
+url_gsheet <- readLines("pass.txt")[4]
 
 #loguear en las apis
 options(lime_api = url)
@@ -25,7 +29,7 @@ get_session_key()
 
 #log en google sheets
 gs4_auth()
-1
+
 
 # dataframe con la lista de encuestas
 survey_df<-call_limer(method='list_surveys')
@@ -44,16 +48,40 @@ xxxx2 <- get_responses(iSurveyID= "id de la encuesta")
 
 
 #importar a google sheets
-range_write(lancara, ss="1P6EAVk7oZ7h3nwhwFO_FifQw1KTxiDymFjlvR1W1-UA", sheet = "lancara", range = "A2", col_names = FALSE)
-range_write(lugo, ss="1P6EAVk7oZ7h3nwhwFO_FifQw1KTxiDymFjlvR1W1-UA", sheet = "lugo", range = "A2", col_names = FALSE)
-range_write(pastoriza, ss="1P6EAVk7oZ7h3nwhwFO_FifQw1KTxiDymFjlvR1W1-UA", sheet = "pastoriza", range = "A2", col_names = FALSE)
-range_write(guitiriz, ss="1P6EAVk7oZ7h3nwhwFO_FifQw1KTxiDymFjlvR1W1-UA", sheet = "guitiriz", range = "A2", col_names = FALSE)
+range_write(lancara, ss=url_gsheet, sheet = "lancara", range = "A2", col_names = FALSE)
+range_write(lugo, ss=url_gsheet, sheet = "lugo", range = "A2", col_names = FALSE)
+range_write(pastoriza, ss=url_gsheet, sheet = "pastoriza", range = "A2", col_names = FALSE)
+range_write(guitiriz, ss=url_gsheet, sheet = "guitiriz", range = "A2", col_names = FALSE)
 
 
 
 #crear un csv en el directorio de trabajo
 write_excel_csv2(xxxx1, "xxxx1.csv")
 write_excel_csv2(xxxx2, "xxxx2.csv")
+
+#tible con las columnas de las encuestas llamadas "Padron" en un mismo tibble
+lancara_padron <- lancara %>% select(Padron)
+lugo_padron <- lugo %>% select(Padron)
+pastoriza_padron <- pastoriza %>% select(Padron)
+guitiriz_padron <- guitiriz %>% select(Padron)
+
+#unir los tibbles en un solo tibble con una variable para identificar el municipio
+lancara_padron <- lancara_padron %>% mutate(municipio = "lancara")
+lugo_padron <- lugo_padron %>% mutate(municipio = "lugo")
+pastoriza_padron <- pastoriza_padron %>% mutate(municipio = "pastoriza")
+guitiriz_padron <- guitiriz_padron %>% mutate(municipio = "guitiriz")
+
+#unir los tibbles en un solo tibble
+padron <- bind_rows(lancara_padron, lugo_padron, pastoriza_padron, guitiriz_padron)
+
+#resumir padron por municipio con un porcentaje de cada una de las opciones de respuesta
+padron %>% group_by(municipio) %>% summarise(Si = sum(Padron == "Si")/n(), No = sum(Padron == "No")/n())
+
+padron  %>% 
+count(municipio, Padron) %>%
+group_by(municipio) %>%
+mutate(Porcentaje = n/sum(n)) 
+
 
 
 #comprobación padrón
@@ -64,6 +92,9 @@ table(guitiriz$Padron)
 
 
 
+
 #soltar sesión de la api de limesurvey
 release_session_key()
+
+
 
