@@ -25,23 +25,29 @@ get_session_key()
 
 #log en google sheets
 gs4_auth()
-
+1
 
 # dataframe con la lista de encuestas
 survey_df<-call_limer(method='list_surveys')
 print(survey_df)
 
-
+#replicar survey_title <- get_responses(iSurveyID= "sid") para cada enucuesta
+lancara <- get_responses(iSurveyID= "246285")
+lugo <- get_responses(iSurveyID= "953215")
+pastoriza <- get_responses(iSurveyID= "949626")
+guitiriz <- get_responses(iSurveyID= "851874")
 
 
 #pegar encuestas en
-xxxx1 <- get_responses(iSurveyID= "id de la encuesta", )
+xxxx1 <- get_responses(iSurveyID= "id de la encuesta")
 xxxx2 <- get_responses(iSurveyID= "id de la encuesta")
 
 
 #importar a google sheets
-range_write(xxxx1, ss="url", sheet = "xxxx1")
-range_write(xxxx2, ss="url", sheet = "xxxx2")
+range_write(lancara, ss="1P6EAVk7oZ7h3nwhwFO_FifQw1KTxiDymFjlvR1W1-UA", sheet = "lancara", range = "A2", col_names = FALSE)
+range_write(lugo, ss="1P6EAVk7oZ7h3nwhwFO_FifQw1KTxiDymFjlvR1W1-UA", sheet = "lugo", range = "A2", col_names = FALSE)
+range_write(pastoriza, ss="1P6EAVk7oZ7h3nwhwFO_FifQw1KTxiDymFjlvR1W1-UA", sheet = "pastoriza", range = "A2", col_names = FALSE)
+range_write(guitiriz, ss="1P6EAVk7oZ7h3nwhwFO_FifQw1KTxiDymFjlvR1W1-UA", sheet = "guitiriz", range = "A2", col_names = FALSE)
 
 
 
