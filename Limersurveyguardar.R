@@ -57,8 +57,12 @@ write_excel_csv2(xxxx2, "xxxx2.csv")
 
 
 #comprobación padrón
-table(xxxx1$Padron)
-table(xxxx2$Padron)
+table(lancara$Padron)
+table(lugo$Padron)
+table(pastoriza$Padron)
+table(guitiriz$Padron)
+
+
 
 #soltar sesión de la api de limesurvey
 release_session_key()
