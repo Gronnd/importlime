@@ -59,29 +59,6 @@ range_write(guitiriz, ss=url_gsheet, sheet = "guitiriz", range = "A2", col_names
 write_excel_csv2(xxxx1, "xxxx1.csv")
 write_excel_csv2(xxxx2, "xxxx2.csv")
 
-#tible con las columnas de las encuestas llamadas "Padron" en un mismo tibble
-lancara_padron <- lancara %>% select(Padron)
-lugo_padron <- lugo %>% select(Padron)
-pastoriza_padron <- pastoriza %>% select(Padron)
-guitiriz_padron <- guitiriz %>% select(Padron)
-
-#unir los tibbles en un solo tibble con una variable para identificar el municipio
-lancara_padron <- lancara_padron %>% mutate(municipio = "lancara")
-lugo_padron <- lugo_padron %>% mutate(municipio = "lugo")
-pastoriza_padron <- pastoriza_padron %>% mutate(municipio = "pastoriza")
-guitiriz_padron <- guitiriz_padron %>% mutate(municipio = "guitiriz")
-
-#unir los tibbles en un solo tibble
-padron <- bind_rows(lancara_padron, lugo_padron, pastoriza_padron, guitiriz_padron)
-
-#resumir padron por municipio con un porcentaje de cada una de las opciones de respuesta
-padron %>% group_by(municipio) %>% summarise(Si = sum(Padron == "Si")/n(), No = sum(Padron == "No")/n())
-
-padron  %>% 
-count(municipio, Padron) %>%
-group_by(municipio) %>%
-mutate(Porcentaje = n/sum(n)) 
-
 
 
 #comprobación padrón
