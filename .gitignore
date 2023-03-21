@@ -3,7 +3,7 @@
 .Rapp.history
 
 #contraseña
-pass.txt
+/*.txt
 
 # Session Data files
 .RData
