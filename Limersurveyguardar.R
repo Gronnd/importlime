@@ -42,7 +42,7 @@ pastoriza <- get_responses(iSurveyID= "949626")
 guitiriz <- get_responses(iSurveyID= "851874")
 
 
-#pegar encuestas en
+#pegar encuestas en un dataframe
 xxxx1 <- get_responses(iSurveyID= "id de la encuesta")
 xxxx2 <- get_responses(iSurveyID= "id de la encuesta")
 
@@ -72,6 +72,3 @@ table(guitiriz$Padron)
 
 #soltar sesión de la api de limesurvey
 release_session_key()
-
-
-
