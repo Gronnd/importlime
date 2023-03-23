@@ -65,7 +65,7 @@ table(lancara$Padron)
 table(lugo$Padron)
 table(pastoriza$Padron)
 table(guitiriz$Padron)
-
+table(corunha$Padron)
  
 #soltar sesión de la api de limesurvey
 release_session_key()
