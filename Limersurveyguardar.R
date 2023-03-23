@@ -1,14 +1,9 @@
-if(!require("googlesheets4")) install.packages("googlesheets4")
-if(!require("tidyverse")) install.packages("tidyverse")
-if (!require("devtools")) {
-        install.packages("devtools")
-        library("devtools")
-}
-install_github("Jan-E/limer")
 library(limer)
 library(googlesheets4)
 library(tidyverse)
 library(rlang)
+library(summarytools)
+library(ggblanket)
 
 #get username from the first lineof pass.txt
 username <- readLines("pass.txt")[1]
@@ -35,11 +30,13 @@ gs4_auth()
 survey_df<-call_limer(method='list_surveys')
 print(survey_df)
 
-#replicar survey_title <- get_responses(iSurveyID= "sid") para cada enucuesta
+#replicar survey_title <- get_responses(iSurveyID= "sid") para cada encuesta
+corunha <- get_responses(iSurveyID= "375797")
 lancara <- get_responses(iSurveyID= "246285")
 lugo <- get_responses(iSurveyID= "953215")
 pastoriza <- get_responses(iSurveyID= "949626")
 guitiriz <- get_responses(iSurveyID= "851874")
+
 
 
 #pegar encuestas en un dataframe
@@ -52,6 +49,8 @@ range_write(lancara, ss=url_gsheet, sheet = "lancara", range = "A2", col_names =
 range_write(lugo, ss=url_gsheet, sheet = "lugo", range = "A2", col_names = FALSE)
 range_write(pastoriza, ss=url_gsheet, sheet = "pastoriza", range = "A2", col_names = FALSE)
 range_write(guitiriz, ss=url_gsheet, sheet = "guitiriz", range = "A2", col_names = FALSE)
+range_write(corunha, ss=url_gsheet, sheet = "corunha", range = "A2", col_names = FALSE)
+
 
 
 
@@ -67,8 +66,7 @@ table(lugo$Padron)
 table(pastoriza$Padron)
 table(guitiriz$Padron)
 
-
-
-
+ 
 #soltar sesión de la api de limesurvey
 release_session_key()
+
