@@ -70,4 +70,3 @@ table(corunha$Padron)
  
 #soltar sesión de la api de limesurvey
 release_session_key()
-
