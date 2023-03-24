@@ -10,6 +10,7 @@ username <- readLines("pass.txt")[1]
 password <- readLines("pass.txt")[2]
 url <- readLines("pass.txt")[3]
 url_gsheet <- readLines("pass.txt")[4]
+mail <- readLines("pass.txt")[5]
 
 #loguear en las apis
 options(lime_api = url)
@@ -23,7 +24,7 @@ options(lime_password = password)
 get_session_key()
 
 #log en google sheets
-gs4_auth()
+gs4_auth(email = mail)
 
 
 # dataframe con la lista de encuestas
