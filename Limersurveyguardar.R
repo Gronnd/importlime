@@ -3,7 +3,7 @@ library(googlesheets4)
 library(tidyverse)
 library(rlang)
 library(summarytools)
-library(ggblanket)
+
 
 #get username from the first lineof pass.txt
 username <- readLines("pass.txt")[1]
