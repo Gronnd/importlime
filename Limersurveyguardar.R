@@ -1,8 +1,6 @@
 library(limer)
 library(googlesheets4)
 library(tidyverse)
-library(rlang)
-library(summarytools)
 
 
 #get username from the first lineof pass.txt
@@ -17,7 +15,6 @@ options(lime_api = url)
 options(lime_username = username)
 options(lime_password = password)
 
-#############################################################
 
 
 #key de la API de limesurvey
@@ -39,12 +36,6 @@ pastoriza <- get_responses(iSurveyID= "949626")
 guitiriz <- get_responses(iSurveyID= "851874")
 
 
-
-#pegar encuestas en un dataframe
-xxxx1 <- get_responses(iSurveyID= "id de la encuesta")
-xxxx2 <- get_responses(iSurveyID= "id de la encuesta")
-
-
 #importar a google sheets
 range_write(lancara, ss=url_gsheet, sheet = "lancara", range = "A2", col_names = FALSE)
 range_write(lugo, ss=url_gsheet, sheet = "lugo", range = "A2", col_names = FALSE)
@@ -52,21 +43,5 @@ range_write(pastoriza, ss=url_gsheet, sheet = "pastoriza", range = "A2", col_nam
 range_write(guitiriz, ss=url_gsheet, sheet = "guitiriz", range = "A2", col_names = FALSE)
 range_write(corunha, ss=url_gsheet, sheet = "corunha", range = "A2", col_names = FALSE)
 
-
-
-
-#crear un csv en el directorio de trabajo
-write_excel_csv2(xxxx1, "xxxx1.csv")
-write_excel_csv2(xxxx2, "xxxx2.csv")
-
-
-
-#comprobación padrón
-table(lancara$Padron)
-table(lugo$Padron)
-table(pastoriza$Padron)
-table(guitiriz$Padron)
-table(corunha$Padron)
- 
-#soltar sesión de la api de limesurvey
+#cerrar sesion
 release_session_key()
