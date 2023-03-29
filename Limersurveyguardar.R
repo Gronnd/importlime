@@ -25,6 +25,7 @@ gs4_auth(email = mail)
 survey_df <- call_limer(method = 'list_surveys')
 print(survey_df)
 
+
 # Función para obtener respuestas y escribir en Google Sheets
 write_responses_to_sheet <- function(iSurveyID, sheet_name) {
   responses <- get_responses(iSurveyID = iSurveyID)
