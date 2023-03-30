@@ -19,6 +19,9 @@ options(lime_password = password)
 # Obtener clave de sesión de la API de limesurvey
 get_session_key()
 
+# eliminar objetos con datos sensibles
+rm(username, password)
+
 # Iniciar sesión en Google Sheets
 gs4_auth(email = mail)
 
@@ -44,3 +47,4 @@ for (i in seq_along(survey_ids)) {
 
 # Cerrar sesión
 release_session_key()
+rm(list = ls())
