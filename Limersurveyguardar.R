@@ -10,6 +10,7 @@ url <- credentials[3]
 url_gsheet <- credentials[4]
 mail <- credentials[5]
 
+
 # Iniciar sesión en las APIs
 options(lime_api = url)
 options(lime_username = username)
@@ -40,8 +41,6 @@ sheet_names <- c("corunha", "lancara", "lugo", "pastoriza", "guitiriz")
 for (i in seq_along(survey_ids)) {
   write_responses_to_sheet(survey_ids[i], sheet_names[i])
 }
-
-write_responses_to_sheet(375797, "corunha")
 
 # Cerrar sesión
 release_session_key()
