@@ -2,12 +2,14 @@ library(limer)
 library(googlesheets4)
 library(tidyverse)
 
+
+
+
 # Leer las credenciales y URL de pass.txt
 credentials <- readLines("pass.txt")
 username <- credentials[1]
 password <- credentials[2]
 url <- credentials[3]
-url_gsheet <- credentials[4]
 mail <- credentials[5]
 
 
@@ -29,20 +31,18 @@ print(survey_df)
 
 
 # Función para obtener respuestas y escribir en Google Sheets
-write_responses_to_sheet <- function(iSurveyID, sheet_name) {
+write_responses_to_sheet <- function(iSurveyID, sheet_name, url_gsheet) {
   responses <- get_responses(iSurveyID = iSurveyID)
   range_write(responses, ss = url_gsheet, sheet = sheet_name, range = "A2", col_names = FALSE)
 }
 
 # Diccionario con IDs de encuesta y nombres de hojas
-survey_ids <- c("375797", "246285", "953215", "949626", "851874")
-sheet_names <- c("corunha", "lancara", "lugo", "pastoriza", "guitiriz")
 
-# Iterar sobre los IDs de encuesta y nombres de hojas, y escribir respuestas en Google Sheets
-for (i in seq_along(survey_ids)) {
-  write_responses_to_sheet(survey_ids[i], sheet_names[i])
-}
 
-# Cerrar sesión
+write_responses_to_sheet("791131", "Agronovo_2023", "1VFMVSQe-eCajf8L5sVocI_wP6lF4cJKpmo2ZRjns8mo")
+
 release_session_key()
 rm(list = ls())
+
+
+
