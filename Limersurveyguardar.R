@@ -43,6 +43,3 @@ write_responses_to_sheet("791131", "Agronovo_2023", "1VFMVSQe-eCajf8L5sVocI_wP6l
 
 release_session_key()
 rm(list = ls())
-
-
-
