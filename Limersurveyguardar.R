@@ -10,7 +10,12 @@ credentials <- readLines("pass.txt")
 username <- credentials[1]
 password <- credentials[2]
 url <- credentials[3]
-mail <- credentials[5]
+mail <- credentials[4]
+
+# Datos para importaciones
+datos <- readLines("importaciones.txt")
+hoja <- datos[1]
+
 
 
 # Iniciar sesión en las APIs
@@ -38,10 +43,8 @@ write_responses_to_sheet <- function(iSurveyID, sheet_name, url_gsheet) {
 
 # Diccionario con IDs de encuesta y nombres de hojas
 
+write_responses_to_sheet("791131", "Agronovo_2023", hoja)
 
-write_responses_to_sheet("791131", "Agronovo_2023", "1VFMVSQe-eCajf8L5sVocI_wP6lF4cJKpmo2ZRjns8mo")
-
-
-
+# Cerrar sesión en la API de limesurvey
 release_session_key()
 rm(list = ls())
