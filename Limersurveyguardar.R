@@ -40,4 +40,3 @@ release_session_key()
 
 # Limpiar el entorno de trabajo
 rm(list = ls())
-
