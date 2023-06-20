@@ -11,9 +11,19 @@ mail <- credentials[4]
 
 # Leer los datos para importaciones
 datos <- readLines("importaciones.txt")
-iSurveyID <- datos[1]
-sheet_name <- datos[2]
-url_gsheet <- datos[3]
+iSurveyIDs <- str_split(datos[1], pattern = ",")[[1]] # Separa las encuestas por comas
+sheet_names <- str_split(datos[2], pattern = ",")[[1]] # Separa los nombres de las hojas por comas
+url_gsheets <- str_split(datos[3], pattern = ",")[[1]] # Separa las URLs de Google Sheets por comas
+
+# Asegurar que tenemos el mismo número de encuestas, nombres de hojas y URLs de Google Sheets
+if (length(iSurveyIDs) != length(sheet_names) | length(iSurveyIDs) != length(url_gsheets)) {
+  stop("El número de IDs de encuestas, nombres de hojas y URLs de Google Sheets debe ser el mismo.")
+}
+
+# Eliminar los espacios en blanco antes y después de cada elemento
+iSurveyIDs <- trimws(iSurveyIDs)
+sheet_names <- trimws(sheet_names)
+url_gsheets <- trimws(url_gsheets)
 
 # Iniciar sesión en las APIs
 options(lime_api = url)
@@ -33,10 +43,12 @@ write_responses_to_sheet <- function(iSurveyID, sheet_name, url_gsheet) {
 }
 
 # Llamar a la función con los datos leídos de importaciones.txt
-write_responses_to_sheet(iSurveyID, sheet_name, url_gsheet)
+# usando purrr::map2() para hacer un bucle a través de cada conjunto de encuesta/hoja/URL
+purrr::pmap(list(iSurveyIDs, sheet_names, url_gsheets), write_responses_to_sheet)
 
 # Cerrar sesión en la API de limesurvey
 release_session_key()
 
 # Limpiar el entorno de trabajo
 rm(list = ls())
+
